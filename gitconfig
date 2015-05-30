@@ -1,0 +1,29 @@
+[user]
+	name = Edbury Enegren
+	email = edbury@radius.com
+[core]
+	excludesfile = /Users/edbury/.gitignore_global
+	editor = vim
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+	tool = Kaleidoscope
+[difftool]
+	prompt = false
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false
+	keepBackup = true
+[merge]
+	tool = Kaleidoscope
+[push]
+	default = current
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[commit]
+	template = /Users/edbury/.commit-template
+[credential]
+	helper = osxkeychain

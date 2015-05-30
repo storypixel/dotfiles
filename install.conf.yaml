@@ -1,8 +1,17 @@
 - clean: []
 - link: 
+    ~/.commit-template:
+        relink: true
+        path: commit-template
     ~/.config:
         relink: true
         path: config/
+    ~/.gitconfig:
+        relink: true
+        path: gitconfig
+    ~/.gitignore_global:
+        relink: true
+        path: gitignore_global
     ~/.tmux.conf:
         relink: true
         path: tmux.conf
