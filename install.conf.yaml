@@ -1,3 +1,20 @@
 - clean: []
-- link: {}
-- shell: []
+- link: 
+    ~/.config:
+        relink: true
+        path: config/
+    ~/.tmux.conf:
+        relink: true
+        path: tmux.conf
+    ~/.vim: 
+        relink: true
+        path: vim/
+    ~/.vimrc:
+        relink: true
+        path: vimrc
+- shell: 
+    - 
+      command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      stdin: true
+      stdout: true
+      stderr: true
