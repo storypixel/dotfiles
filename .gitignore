@@ -1,0 +1,3 @@
+# Let Vundle handle this mess
+vim/bundle/*
+!Vundle.vim
