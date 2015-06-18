@@ -1,3 +1,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
+[submodule "config/base16-shell"]
+	path = config/base16-shell
+	url = git@github.com:chriskempson/base16-shell.git

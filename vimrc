@@ -1,4 +1,39 @@
-execute pathogen#infect()
+" ----------------------------------    Vundle
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Keep Plugin commands between vundle#begin/end.
+
+Plugin 'kien/ctrlp.vim'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'chriskempson/base16-vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'shime/vim-livedown'
+Plugin 'tpope/vim-sensible'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
 
 " ----------------------------------    General
 let base16colorspace=256              " Access colors present in 256 colorspace
@@ -8,7 +43,6 @@ match ErrorMsg '\s\+$'                " Highlight trailing whitespace
 set number                            " Show line numbers
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
 set background=dark
-filetype plugin indent on
 colorscheme base16-ocean
 set backspace=indent,eol,start        " Allow backspace in insert mode
 set history=1000                      " Store lots of :cmdline history

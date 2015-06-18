@@ -27,3 +27,9 @@
       stdin: true
       stdout: true
       stderr: true
+    -
+      command: [git submodule update --init --recursive, Installing submodules]
+      stdin: true
+      stdout: true
+      stderr: true
+ 
