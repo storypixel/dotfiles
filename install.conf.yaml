@@ -24,6 +24,9 @@
     ~/.vimrc:
         relink: true
         path: vimrc
+    ~/.zshrc:
+        relink: true
+        path: zshrc
 - shell: 
     - 
       command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
