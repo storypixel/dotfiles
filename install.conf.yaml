@@ -24,6 +24,24 @@
     ~/.vimrc:
         relink: true
         path: vimrc
+    ~/.zlogin:
+        relink: true
+        path: zlogin
+    ~/.zlogout:
+        relink: true
+        path: zlogout
+    ~/.zprezto:
+        relink: true
+        path: zprezto/
+    ~/.zpreztorc:
+        relink: true
+        path: zpreztorc
+    ~/.zprofile:
+        relink: true
+        path: zprofile
+    ~/.zshenv:
+        relink: true
+        path: zshenv
     ~/.zshrc:
         relink: true
         path: zshrc
