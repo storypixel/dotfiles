@@ -1,3 +1,21 @@
+# Browser
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+fi
+
+# Editors
+
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='less'
+
+# Language
+
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
+fi 
+
 # Source Antigen
 source ~/dotfiles/antigen/antigen.zsh
 
@@ -38,3 +56,14 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 # Aliases
 
 alias t='todo.sh'
+
+# Snagged this from Lifehacker 
+# http://lifehacker.com/5592047/turn-your-command-line-into-a-fast-and-simple-note-taking-tool
+
+n() {
+        $EDITOR ~/Dropbox-Personal/notes/"$*".md
+}
+
+nls() {
+        ls -c ~/Dropbox-Personal/notes/ | grep "$*"
+}

@@ -98,6 +98,10 @@ set hlsearch                          " Highlight searches by default
 set ignorecase                        " Ignore case when searching...
 set smartcase                         " ...unless we were typing a capital
 
+" ----------------------------------    Spelling
+autocmd BufRead,BufNewFile *.md setlocal spell
+set complete+=kspell                  " Turn spellcheck on for .md files + word completion
+
 " ----------------------------------    Commands & Mappings
 command! NukeTrailingWhitespace         %s/\s\+$//
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
