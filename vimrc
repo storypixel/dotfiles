@@ -51,12 +51,12 @@ set showmode                          " Show current mode down the bottom
 set gcr=a:blinkon0                    " Disable cursor blink
 set visualbell                        " No sounds
 set autoread                          " Reload files changed outside vim
-
 syntax on                             " Turn on syntax highlighting
-
 let mapleader=','                     " Change leader to a comma because the backslash is too far away. That means all \x commands turn into ,x
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+set clipboard=unnamed                 " Use system clipboard by default
 
 if &term =~ '^screen'                 " tmux will send xterm-style keys when its xterm-keys option is on
     execute "set <xUp>=\e[1;*A"
