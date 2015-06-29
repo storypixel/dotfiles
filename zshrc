@@ -1,9 +1,31 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# Source Antigen
+source ~/dotfiles/antigen/antigen.zsh
+
+# Antigen Bundles - oh-my-zsh
+antigen use oh-my-zsh
+
+antigen bundle brew
+antigen bundle brew-cask
+antigen bundle bundler
+antigen bundle git
+antigen bundle gitfast
+antigen bundle history
+antigen bundle history-substring-search
+antigen bundle npm
+antigen bundle osx
+antigen bundle rails
+antigen bundle rvm
+antigen bundle wd
+
+# Antigen Bundles - elsewhere
+antigen bundle zsh-users/zsh-completions src
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Antigen Theme
+antigen theme sorin
+
+# Tell antigen that we're done.
+antigen apply
 
 unsetopt AUTO_CD
 
