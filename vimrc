@@ -39,11 +39,10 @@ filetype plugin indent on    " required
 let base16colorspace=256              " Access colors present in 256 colorspace
 set nocompatible                      " Use Vim settings, rather than Vi settings
 syntax on                             " Show syntax highlighting
-match ErrorMsg '\s\+$'                " Highlight trailing whitespace
 set number                            " Show line numbers
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
 set background=dark
-colorscheme base16-ocean
+colorscheme base16-ashes
 set backspace=indent,eol,start        " Allow backspace in insert mode
 set history=1000                      " Store lots of :cmdline history
 set showcmd                           " Show incomplete cmds down the bottom
@@ -69,9 +68,9 @@ endif
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set expandtab
 set noshiftround
 
@@ -97,13 +96,14 @@ set incsearch                         " Find the next match as we type the searc
 set hlsearch                          " Highlight searches by default
 set ignorecase                        " Ignore case when searching...
 set smartcase                         " ...unless we were typing a capital
+set wildignore+=**/tmp/**             " Ignore tmp directories when searching
 
 " ----------------------------------    Spelling
 autocmd BufRead,BufNewFile *.md setlocal spell
 set complete+=kspell                  " Turn spellcheck on for .md files + word completion
 
 " ----------------------------------    Commands & Mappings
-command! NukeTrailingWhitespace         %s/\s\+$//
+autocmd BufWritePre * :%s/\s\+$//e    " Trim trailing whitespace
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
