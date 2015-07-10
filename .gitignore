@@ -1,3 +1,4 @@
 # Let Vundle handle this mess
 vim/bundle/*
+vim/swaps/*
 !Vundle.vim
