@@ -15,11 +15,12 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'chriskempson/base16-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -41,8 +42,11 @@ set nocompatible                      " Use Vim settings, rather than Vi setting
 syntax on                             " Show syntax highlighting
 set number                            " Show line numbers
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
+syntax enable
 set background=dark
-colorscheme base16-ashes
+colorscheme solarized
+let g:solarized_termcolors = 256      " For me using terminal.app, otherwise everything just shits itself
+set t_Co=256                          " Needed to force Terminal.app to display 256 colors
 set backspace=indent,eol,start        " Allow backspace in insert mode
 set history=1000                      " Store lots of :cmdline history
 set showcmd                           " Show incomplete cmds down the bottom
@@ -121,10 +125,10 @@ nnoremap <silent> <leader>b :CtrlPBuffer<CR>
 
 nmap <leader><ESC> ,,w
 nmap <leader><TAB> ,,b
-let g:EasyMotion_keys='asdfjkowerip'  " These keys are easier to type than the default set. 
-                                      " We exclude semicolon because it's hard to read and 
-                                      " i and l are too easy to mistake for each other slowing 
-                                      " down recognition. The home keys and the immediate keys 
+let g:EasyMotion_keys='asdfjkowerip'  " These keys are easier to type than the default set.
+                                      " We exclude semicolon because it's hard to read and
+                                      " i and l are too easy to mistake for each other slowing
+                                      " down recognition. The home keys and the immediate keys
                                       " accessible by middle fingers are available
 
 nmap <leader>m :LivedownPreview<CR>

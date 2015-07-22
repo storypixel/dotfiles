@@ -14,10 +14,10 @@ export PAGER='less'
 
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
-fi 
+fi
 
 # Source Antigen
-source ~/dotfiles/antigen/antigen.zsh
+source ~/.antigen.zsh
 
 # Antigen Bundles - oh-my-zsh
 antigen use oh-my-zsh
@@ -48,10 +48,14 @@ antigen apply
 unsetopt AUTO_CD
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-ashes.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# BASE16_SHELL="$HOME/.config/base16-shell/base16-ashes.dark.sh"
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# NVM
+source ~/.nvm/nvm.sh
 
 # Aliases
 
@@ -60,7 +64,7 @@ export TODOTXT_DEFAULT_ACTION=ls
 alias t='todo.sh'
 
 ## Notes
-### Snagged this from Lifehacker 
+### Snagged this from Lifehacker
 ### http://lifehacker.com/5592047/turn-your-command-line-into-a-fast-and-simple-note-taking-tool
 
 n() {
@@ -70,3 +74,6 @@ n() {
 nls() {
         ls -c ~/Dropbox-Personal/Dropbox/notes/ | grep "$*"
 }
+
+# rbenv was installed with brew, and this next line was required by rbenv iff installed with brew
+eval "$(rbenv init -)"
