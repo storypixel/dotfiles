@@ -21,6 +21,11 @@ Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'jlanzarotta/bufexplorer'
+Bundle 'https://github.com/bronson/vim-visual-star-search'
+" use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
+nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
+vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('grep', '--literal ' . shellescape(@/))<CR>
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
