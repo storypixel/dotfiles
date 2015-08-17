@@ -1,8 +1,8 @@
 [user]
-	name = Edbury Enegren
-	email = edbury@radius.com
+	name = Sam Wilson
+	email = sam@radius.com
 [core]
-	excludesfile = /Users/edbury/.gitignore_global
+	excludesfile = /Users/sam/.gitignore_global
 	editor = vim
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
@@ -24,12 +24,12 @@
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
 [commit]
-	template = /Users/edbury/.commit-template
+	template = /Users/sam/.commit-template
 [credential]
 	helper = osxkeychain
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
