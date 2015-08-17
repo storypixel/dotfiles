@@ -15,10 +15,10 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-vinegar'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'jlanzarotta/bufexplorer'
@@ -117,10 +117,6 @@ command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
 " ----------------------------------    Plugin Settings
-let g:NERDTreeChDirMode                 = 2
-map      <leader>\                      :NERDTreeToggle<CR>
-let NERDTreeShowHidden                  = 1
-
 let g:ctrlp_working_path_mode           = 'rw'
 let g:ctrlp_map                         = '<leader>p'
 let g:ctrlp_show_hidden                 = 1
