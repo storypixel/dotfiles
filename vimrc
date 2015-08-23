@@ -19,6 +19,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-vinegar'
+Plugin 'mattn/emmet-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'jlanzarotta/bufexplorer'
@@ -133,3 +134,6 @@ let g:EasyMotion_keys='asdfjkowerip'  " These keys are easier to type than the d
                                       " accessible by middle fingers are available
 
 nmap <leader>m :LivedownPreview<CR>
+
+" ----------------------------------    Emmet Plugin Settings
+let g:user_emmet_mode='inv'  "enable all functions, which is equal to
