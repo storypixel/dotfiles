@@ -49,10 +49,13 @@ syntax on                             " Show syntax highlighting
 set number                            " Show line numbers
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
 syntax enable
+
 set background=dark
+" solarized options
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
 colorscheme solarized
-let g:solarized_termcolors = 256      " For me using terminal.app, otherwise everything just shits itself
-set t_Co=256                          " Needed to force Terminal.app to display 256 colors
+
 set backspace=indent,eol,start        " Allow backspace in insert mode
 set history=1000                      " Store lots of :cmdline history
 set showcmd                           " Show incomplete cmds down the bottom

@@ -77,3 +77,6 @@ nls() {
 
 # rbenv was installed with brew, and this next line was required by rbenv iff installed with brew
 eval "$(rbenv init -)"
+
+# jilles.me article recommends z
+. `brew --prefix`/etc/profile.d/z.sh
