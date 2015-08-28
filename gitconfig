@@ -1,8 +1,8 @@
 [user]
-	name = Sam Wilson
-	email = sam@radius.com
+	name = Kevin Boyle
+	email = kevin.boyle@radius.com
 [core]
-	excludesfile = /Users/sam/.gitignore_global
+	excludesfile = /Users/kevinboyle/.gitignore_global
 	editor = vim
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
@@ -24,7 +24,7 @@
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
 [commit]
-	template = /Users/sam/.commit-template
+	template = /Users/kevinboyle/.commit-template
 [credential]
 	helper = osxkeychain
 [difftool "sourcetree"]
