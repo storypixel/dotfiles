@@ -49,13 +49,6 @@ set number                            " Show line numbers
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
 syntax enable
 
-" solarized options
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-colorscheme solarized
-set background=dark
-
-
 set backspace=indent,eol,start        " Allow backspace in insert mode
 set history=1000                      " Store lots of :cmdline history
 set showcmd                           " Show incomplete cmds down the bottom
@@ -141,9 +134,7 @@ nmap <leader>m :LivedownPreview<CR>
 " ----------------------------------    Emmet Plugin Settings
 let g:user_emmet_mode='inv'  "enable all functions, which is equal to
 
-
-
-" Some settings to enable the theme:
+" solarized options
 set number
 syntax enable
 set background=dark
