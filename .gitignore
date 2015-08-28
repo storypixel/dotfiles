@@ -2,3 +2,6 @@
 vim/bundle/*
 vim/swaps/*
 !Vundle.vim
+
+# Sam's definition
+gitconfig
