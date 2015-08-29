@@ -143,5 +143,5 @@ set background=dark
 let g:solarized_termcolors = 256  " New line!!
 colorscheme solarized
 
-#airline
+" airline
 let g:airline#extensions#tabline#enabled = 1
