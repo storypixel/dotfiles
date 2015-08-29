@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 
 
-Plugin 'Lokaltog/vim-easymotion'
+Bundle 'kien/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tpope/vim-surround'
@@ -20,15 +20,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-vinegar'
-Plugin 'mattn/emmet-vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'https://github.com/bronson/vim-visual-star-search'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
-" Plugin 'Shougo/unite.vim'
-
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
 nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
@@ -63,7 +60,7 @@ set gcr=a:blinkon0                    " Disable cursor blink
 set visualbell                        " No sounds
 set autoread                          " Reload files changed outside vim
 syntax on                             " Turn on syntax highlighting
-let mapleader=','                     " Change leader to a comma because the backslash is too far away. That means all \x commands turn into ,x
+let mapleader = ','
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
@@ -120,20 +117,6 @@ command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
 " ----------------------------------    Plugin Settings
-
-nmap <leader><ESC> ,,w
-nmap <leader><TAB> ,,b
-let g:EasyMotion_keys='asdfjkowerip'  " These keys are easier to type than the default set.
-                                      " We exclude semicolon because it's hard to read and
-                                      " i and l are too easy to mistake for each other slowing
-                                      " down recognition. The home keys and the immediate keys
-                                      " accessible by middle fingers are available
-
-nmap <leader>m :LivedownPreview<CR>
-
-" ----------------------------------    Emmet Plugin Settings
-let g:user_emmet_mode='inv'  "enable all functions, which is equal to
-
 " solarized options
 set number
 syntax enable
@@ -153,3 +136,9 @@ else
   set nu
 endif
 
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+    \ 'AcceptSelection("t")': ['<cr>'],
+    \ }
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
