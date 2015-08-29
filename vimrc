@@ -11,20 +11,24 @@ Plugin 'gmarik/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
 
-Plugin 'kien/ctrlp.vim'
+
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-vinegar'
 Plugin 'mattn/emmet-vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'jlanzarotta/bufexplorer'
-Bundle 'https://github.com/bronson/vim-visual-star-search'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'https://github.com/bronson/vim-visual-star-search'
 Plugin 'bling/vim-airline'
+Plugin 'ervandew/supertab'
+" Plugin 'Shougo/unite.vim'
+
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
 nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
@@ -116,12 +120,6 @@ command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
 " ----------------------------------    Plugin Settings
-let g:ctrlp_working_path_mode           = 'rw'
-let g:ctrlp_map                         = '<leader>p'
-let g:ctrlp_show_hidden                 = 1
-let g:ctrlp_custom_ignore               = { 'dir': 'Build\|sass-cache\|git\|DS_Store' }
-nnoremap <silent> <leader>p :CtrlP<CR>
-nnoremap <silent> <leader>b :CtrlPBuffer<CR>
 
 nmap <leader><ESC> ,,w
 nmap <leader><TAB> ,,b
@@ -143,5 +141,15 @@ set background=dark
 let g:solarized_termcolors = 256  " New line!!
 colorscheme solarized
 
-" airline
+" airline options
 let g:airline#extensions#tabline#enabled = 1
+
+" Line number rules
+set number
+
+if exists('+relativenumber')
+  set rnu
+else
+  set nu
+endif
+

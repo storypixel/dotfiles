@@ -1,4 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages'
-let g:netrw_dirhist_2='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages/cmo-report'
+let g:netrw_dirhist_cnt =0
