@@ -26,6 +26,7 @@ Plugin 'jlanzarotta/bufexplorer'
 Plugin 'https://github.com/bronson/vim-visual-star-search'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
 nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
@@ -48,7 +49,14 @@ filetype plugin indent on    " required
 " ----------------------------------    General
 set nocompatible                      " Use Vim settings, rather than Vi settings
 syntax on                             " Show syntax highlighting
-set number                            " Show line numbers
+" Line number rules
+set number
+
+if exists('+relativenumber')
+  set rnu
+else
+  set nu
+endif
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
 syntax enable
 
@@ -118,7 +126,6 @@ map      <leader>d                      :bp\|bd #<CR>
 
 " ----------------------------------    Plugin Settings
 " solarized options
-set number
 syntax enable
 set background=dark
 let g:solarized_termcolors = 256  " New line!!
@@ -127,15 +134,7 @@ colorscheme solarized
 " airline options
 let g:airline#extensions#tabline#enabled = 1
 
-" Line number rules
-set number
-
-if exists('+relativenumber')
-  set rnu
-else
-  set nu
-endif
-
+" ctrlp settings
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
     \ 'AcceptSelection("t")': ['<cr>'],
