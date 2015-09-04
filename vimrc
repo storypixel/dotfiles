@@ -140,6 +140,11 @@ autocmd BufWritePre * :%s/\s\+$//e    " Trim trailing whitespace
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
+
+" Clear highlighting on escape in normal mode
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
+
 " ----------------------------------    Plugin Settings
 " solarized options
 syntax enable
