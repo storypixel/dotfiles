@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
+<<<<<<< HEAD
 let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/kevinboyle/Documents/Websites'
 let g:netrw_dirhist_2='/Users/kevinboyle/Documents/Websites/thekevinboyle/app'
@@ -9,3 +10,12 @@ let g:netrw_dirhist_6='/Users/kevinboyle/Documents/Websites'
 let g:netrw_dirhist_7='/Users/kevinboyle/Documents/Websites/thekevinboyle'
 let g:netrw_dirhist_8='/Users/kevinboyle/Documents/Websites/thekevinboyle/app'
 let g:netrw_dirhist_9='/Users/kevinboyle/Documents/Websites/thekevinboyle/app/css'
+=======
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/sam/Documents/Websites/mp.dev/wp-content/themes/hsllc'
+let g:netrw_dirhist_2='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages/cmo-report'
+let g:netrw_dirhist_3='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages'
+let g:netrw_dirhist_4='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss'
+let g:netrw_dirhist_5='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages/cmo-report'
+let g:netrw_dirhist_6='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages'
+>>>>>>> fa81024c83af98106b024b9d95b1877458214242
