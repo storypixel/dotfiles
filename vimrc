@@ -21,7 +21,7 @@ Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-obsession'
-Plugin 'docunext/closetag.vim'
+Bundle 'Raimondi/delimitMate'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jlanzarotta/bufexplorer'
@@ -167,6 +167,10 @@ let g:ctrlp_prompt_mappings = {
 let g:syntastic_always_populate_loc_list = 1
 noremap [ :lprev<CR>
 noremap ] :lnext<CR>
+
+" Expand delimitmate
+let delimitMate_expand_cr=1
+let delimitMate_expand_space=1
 
 " Syntastic shouldn't bother with HTML files
 let g:syntastic_ignore_files=['.html$']
