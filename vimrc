@@ -20,6 +20,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-obsession'
+Plugin 'docunext/closetag.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jlanzarotta/bufexplorer'
@@ -27,6 +29,16 @@ Plugin 'https://github.com/bronson/vim-visual-star-search'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Syntax plugins
+Bundle 'scrooloose/syntastic'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'othree/html5-syntax.vim'
+Bundle 'tpope/vim-markdown'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'jiangmiao/simple-javascript-indenter'
+Bundle 'jQuery'
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
 nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
@@ -58,7 +70,12 @@ else
   set nu
 endif
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
-syntax enable
+
+" Prevent goofy backup files
+set nobackup
+
+" Prevent the creation of swp files, they're just a mess
+set noswapfile
 
 set backspace=indent,eol,start        " Allow backspace in insert mode
 set history=1000                      " Store lots of :cmdline history
@@ -67,7 +84,6 @@ set showmode                          " Show current mode down the bottom
 set gcr=a:blinkon0                    " Disable cursor blink
 set visualbell                        " No sounds
 set autoread                          " Reload files changed outside vim
-syntax on                             " Turn on syntax highlighting
 let mapleader = ','
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -124,6 +140,11 @@ autocmd BufWritePre * :%s/\s\+$//e    " Trim trailing whitespace
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
+
+" Clear highlighting on escape in normal mode
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
+
 " ----------------------------------    Plugin Settings
 " solarized options
 syntax enable
@@ -133,11 +154,21 @@ colorscheme solarized
 
 " airline options
 let g:airline#extensions#tabline#enabled = 1
+" Allow slimline to use powerline fonts
+let g:airline_powerline_fonts=1
 
 " ctrlp settings
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
     \ 'AcceptSelection("t")': ['<cr>'],
     \ }
+
+" Jumping around errors
+let g:syntastic_always_populate_loc_list = 1
+noremap [ :lprev<CR>
+noremap ] :lnext<CR>
+
+" Syntastic shouldn't bother with HTML files
+let g:syntastic_ignore_files=['.html$']
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim

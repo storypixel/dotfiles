@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
+<<<<<<< HEAD
 let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate/src'
 let g:netrw_dirhist_2='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets'
@@ -9,3 +10,7 @@ let g:netrw_dirhist_6='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/t
 let g:netrw_dirhist_7='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes'
 let g:netrw_dirhist_8='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content'
 let g:netrw_dirhist_9='/Users/kevinboyle/Documents/Websites/rad.dev'
+=======
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/Users/sam/Documents/Websites/mp.dev/wp-content/themes/hsllc'
+>>>>>>> 2553f7697c560e14ed628204f2375dd14f14ff91
