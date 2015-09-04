@@ -1,2 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate/src'
+let g:netrw_dirhist_2='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets'
+let g:netrw_dirhist_3='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss'
+let g:netrw_dirhist_4='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets'
+let g:netrw_dirhist_5='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate/src'
+let g:netrw_dirhist_6='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes/vate'
+let g:netrw_dirhist_7='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content/themes'
+let g:netrw_dirhist_8='/Users/kevinboyle/Documents/Websites/rad.dev/wp-content'
+let g:netrw_dirhist_9='/Users/kevinboyle/Documents/Websites/rad.dev'
