@@ -21,7 +21,6 @@ Plugin 'shime/vim-livedown'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-obsession'
-Plugin 'docunext/closetag.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jlanzarotta/bufexplorer'
@@ -29,8 +28,15 @@ Plugin 'https://github.com/bronson/vim-visual-star-search'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'mileszs/ack.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'tomtom/tcomment_vim'
 
 " Syntax plugins
+Bundle 'jiangmiao/auto-pairs'
 Bundle 'scrooloose/syntastic'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'othree/html5-syntax.vim'
@@ -131,6 +137,13 @@ set ignorecase                        " Ignore case when searching...
 set smartcase                         " ...unless we were typing a capital
 set wildignore+=**/tmp/**             " Ignore tmp directories when searching
 
+" Auto complete filenames when in :Ex mode, etc
+set wildmenu
+set wildmode=list:longest
+
+" Visually display matching braces
+set showmatch
+
 " ----------------------------------    Spelling
 autocmd BufRead,BufNewFile *.md setlocal spell
 set complete+=kspell                  " Turn spellcheck on for .md files + word completion
@@ -170,5 +183,17 @@ noremap ] :lnext<CR>
 
 " Syntastic shouldn't bother with HTML files
 let g:syntastic_ignore_files=['.html$']
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command='ag %s -l -i --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching=0
+endif
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
