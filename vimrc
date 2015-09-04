@@ -2,12 +2,14 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+" Vundle initialization
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" let Vundle manage Vundle
+" required!
+
+Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
 
@@ -36,6 +38,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'tomtom/tcomment_vim'
 
 " Syntax plugins
+Bundle 'Valloric/MatchTagAlways'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'scrooloose/syntastic'
 Bundle 'hail2u/vim-css3-syntax'
@@ -53,6 +56,7 @@ vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('gr
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -183,6 +187,8 @@ noremap ] :lnext<CR>
 
 " Syntastic shouldn't bother with HTML files
 let g:syntastic_ignore_files=['.html$']
+
+" let g:syntastic_debug=1
 
 " The Silver Searcher
 if executable('ag')
