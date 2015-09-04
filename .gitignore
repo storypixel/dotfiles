@@ -2,6 +2,7 @@
 vim/bundle/*
 vim/swaps/*
 !Vundle.vim
+.netrwhist
 
 # Sam's definition
 gitconfig
