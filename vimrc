@@ -165,12 +165,6 @@ map      <leader>d                      :bp\|bd #<CR>
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
 
-" ----------------------------------    Plugin Settings
-" solarized options
-set background=dark
-let g:solarized_termcolors = 256  " New line!!
-colorscheme solarized
-
 " airline options
 let g:airline#extensions#tabline#enabled = 1
 " Allow slimline to use powerline fonts
@@ -180,8 +174,19 @@ let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
 set termencoding=utf-8
+
+" ----------------------------------    Plugin Settings
+" solarized options. Having problems? http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
+syntax enable
+set background=dark
+:
+let g:solarized_termtrans=1
+let g:solarized_termcolors = 16  " New line!!
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+colorscheme solarized
+
 
 " ctrlp settings
 let g:ctrlp_prompt_mappings = {
@@ -196,6 +201,7 @@ noremap ] :lnext<CR>
 
 " Syntastic shouldn't bother with HTML files
 let g:syntastic_ignore_files=['.html$']
+let g:syntastic_scss_checkers = ['scss_lint']
 
 " let g:syntastic_debug=1
 
