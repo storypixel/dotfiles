@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/sam/Documents/Websites/mp.dev/wp-content/themes/hsllc'
-let g:netrw_dirhist_2='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages/cmo-report'
-let g:netrw_dirhist_3='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages'
-let g:netrw_dirhist_4='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss'
-let g:netrw_dirhist_5='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages/cmo-report'
-let g:netrw_dirhist_6='/Users/sam/Documents/Websites/rad.dev/wp-content/themes/vate/src/assets/scss/pages'
