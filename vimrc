@@ -36,6 +36,8 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'rking/ag.vim'
+Plugin 'powerline/powerline'
 
 " Syntax plugins
 Bundle 'Valloric/MatchTagAlways'
@@ -47,6 +49,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'jiangmiao/simple-javascript-indenter'
+Plugin 'kchmck/vim-coffee-script'
 Bundle 'jQuery'
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
@@ -55,7 +58,9 @@ vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('gr
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
 
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -70,9 +75,6 @@ filetype plugin indent on    " required
 
 " ----------------------------------    General
 set nocompatible                      " Use Vim settings, rather than Vi settings
-syntax on                             " Show syntax highlighting
-" Line number rules
-set number
 
 if exists('+relativenumber')
   set rnu
@@ -164,7 +166,6 @@ nnoremap <esc>^[ <esc>^[
 
 " ----------------------------------    Plugin Settings
 " solarized options
-syntax enable
 set background=dark
 let g:solarized_termcolors = 256  " New line!!
 colorscheme solarized
@@ -173,6 +174,13 @@ colorscheme solarized
 let g:airline#extensions#tabline#enabled = 1
 " Allow slimline to use powerline fonts
 let g:airline_powerline_fonts=1
+set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
 
 " ctrlp settings
 let g:ctrlp_prompt_mappings = {
@@ -190,16 +198,30 @@ let g:syntastic_ignore_files=['.html$']
 
 " let g:syntastic_debug=1
 
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 " The Silver Searcher
 if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command='ag %s -l -i --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching=0
+
+  " via http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
+  " Note we extract the column as well as the file and line number
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  set grepformat=%f:%l:%c%m
+
+  " this is for the ag command with ag.vim
+  " let g:ag_working_path_mode="r"
 endif
+
+
+nmap <silent> <RIGHT> :cnext<CR>
+nmap <silent> <LEFT> :cprev<CR>
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
