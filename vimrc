@@ -29,7 +29,6 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'https://github.com/bronson/vim-visual-star-search'
 Plugin 'bling/vim-airline'
-Plugin 'ervandew/supertab'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'mileszs/ack.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -40,7 +39,7 @@ Plugin 'tomtom/tcomment_vim'
 Plugin 'rking/ag.vim'
 Plugin 'powerline/powerline'
 
-" Syntax plugins
+" Syntax and language plugins
 Bundle 'Valloric/MatchTagAlways'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'scrooloose/syntastic'
@@ -53,6 +52,8 @@ Bundle 'tpope/vim-markdown'
 " Bundle 'jiangmiao/simple-javascript-indenter'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'pangloss/vim-javascript'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
 Bundle 'jQuery'
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
