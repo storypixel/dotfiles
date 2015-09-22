@@ -54,6 +54,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'pangloss/vim-javascript'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
+Plugin 'Shutnik/jshint2.vim'
 Bundle 'jQuery'
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
@@ -80,11 +81,14 @@ filetype plugin indent on
 " ----------------------------------    General
 set nocompatible                      " Use Vim settings, rather than Vi settings
 
-if exists('+relativenumber')
-  set rnu
-else
-  set nu
-endif
+set relativenumber
+set number
+
+" if exists('+relativenumber')
+"   set rnu
+" else
+"   set nu
+" endif
 set hidden                            " This makes vim act like all other editors, buffers can exist in the background without being in a window. http://items.sjbach.com/319/configuring-vim-right
 
 " Prevent goofy backup files
@@ -190,6 +194,8 @@ let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 colorscheme solarized
 
+let g:netrw_preview = 1
+let g:netrw_localrmdir='rm -r' " Allow netrw to remove non-empty local directories
 
 " ctrlp settings
 let g:ctrlp_prompt_mappings = {
@@ -203,8 +209,10 @@ noremap [ :lprev<CR>
 noremap ] :lnext<CR>
 
 " Syntastic shouldn't bother with HTML files
-let g:syntastic_ignore_files=['.html$']
+let g:syntastic_ignore_files = ['.html$']
 let g:syntastic_scss_checkers = ['scss_lint']
+
+let g:syntastic_javascript_checkers = ['jshint']
 
 " let g:syntastic_debug=1
 
