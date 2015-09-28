@@ -14,7 +14,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 
 
-Bundle 'kien/ctrlp.vim'
+" Bundle 'kien/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tpope/vim-surround'
@@ -38,6 +38,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'rking/ag.vim'
 Plugin 'powerline/powerline'
+Plugin 'justinmk/vim-sneak'
 
 " Syntax and language plugins
 Bundle 'Valloric/MatchTagAlways'
@@ -55,6 +56,8 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'Shutnik/jshint2.vim'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
 Bundle 'jQuery'
 
 " use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
@@ -134,6 +137,7 @@ set linebreak
 
 " ----------------------------------    Scrolling
 set scrolloff=8                       " Start scrolling when we're 8 lines away from margins
+set mouse=a
 
 " ----------------------------------    Centralize backups, swapfiles, and undo history
 set backupdir=~/.vim/backups
@@ -172,6 +176,20 @@ map      <leader>d                      :bp\|bd #<CR>
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
 
+" js beautify
+
+  map <c-f> :call JsBeautify()<cr>
+  " or
+  autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+  " for html
+  autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+  " for css or scss
+  autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+  autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+  autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+  autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
 " airline options
 let g:airline#extensions#tabline#enabled = 1
 " Allow slimline to use powerline fonts
@@ -189,7 +207,7 @@ syntax enable
 set background=dark
 :
 let g:solarized_termtrans=1
-let g:solarized_termcolors = 16  " New line!!
+let g:solarized_termcolors = 16  " If set to 256 you'd have problems see above s.o. link
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 colorscheme solarized
@@ -198,10 +216,10 @@ let g:netrw_preview = 1
 let g:netrw_localrmdir='rm -r' " Allow netrw to remove non-empty local directories
 
 " ctrlp settings
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
-    \ 'AcceptSelection("t")': ['<cr>'],
-    \ }
+" let g:ctrlp_prompt_mappings = {
+"     \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+"     \ 'AcceptSelection("t")': ['<cr>'],
+"     \ }
 
 " Jumping around errors
 let g:syntastic_always_populate_loc_list = 1
@@ -223,10 +241,10 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 if executable('ag')
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command='ag %s -l -i --nocolor -g ""'
+  " let g:ctrlp_user_command='ag %s -l -i --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching=0
+  " let g:ctrlp_use_caching=0
 
   " via http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
   " Note we extract the column as well as the file and line number
