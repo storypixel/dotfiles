@@ -154,7 +154,7 @@ set hlsearch                          " Highlight searches by default
 set ignorecase                        " Ignore case when searching...
 set smartcase                         " ...unless we were typing a capital
 set wildignore+=**/tmp/**             " Ignore tmp directories when searching
-set nowrap                            " Prevent line wrapping
+" set nowrap                            " Prevent line wrapping
 
 " Auto complete filenames when in :Ex mode, etc
 set wildmenu
@@ -172,6 +172,10 @@ autocmd BufWritePre * :%s/\s\+$//e    " Trim trailing whitespace
 command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
+
+" Remap Esc to do nothing and make that function jk instead
+noremap jk <esc>
+noremap <esc> <nop>
 
 " Clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
@@ -215,12 +219,6 @@ colorscheme solarized
 let g:netrw_preview = 1
 let g:netrw_localrmdir='rm -r' " Allow netrw to remove non-empty local directories
 
-" ctrlp settings
-" let g:ctrlp_prompt_mappings = {
-"     \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
-"     \ 'AcceptSelection("t")': ['<cr>'],
-"     \ }
-
 " Jumping around errors
 let g:syntastic_always_populate_loc_list = 1
 noremap [ :lprev<CR>
@@ -229,22 +227,12 @@ noremap ] :lnext<CR>
 " Syntastic shouldn't bother with HTML files
 let g:syntastic_ignore_files = ['.html$']
 let g:syntastic_scss_checkers = ['scss_lint']
-
 let g:syntastic_javascript_checkers = ['jshint']
 
 " let g:syntastic_debug=1
 
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 " The Silver Searcher
 if executable('ag')
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  " let g:ctrlp_user_command='ag %s -l -i --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  " let g:ctrlp_use_caching=0
 
   " via http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
   " Note we extract the column as well as the file and line number
@@ -256,8 +244,8 @@ if executable('ag')
   " let g:ag_working_path_mode="r"
 endif
 
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nmap <silent> <RIGHT> :cnext<CR>
 nmap <silent> <LEFT> :cprev<CR>
-
-set runtimepath^=~/.vim/bundle/ctrlp.vim
