@@ -1,0 +1,960 @@
+FUNCTION  <SNR>85_is_branch_empty()
+Called 8 times
+Total time:   0.000963
+ Self time:   0.000109
+
+count  total (s)   self (s)
+    8   0.000959   0.000105   return exists('*airline#extensions#branch#head') && empty(airline#extensions#branch#head())
+
+FUNCTION  gitgutter#process_buffer()
+Called 3 times
+Total time:   0.000598
+ Self time:   0.000211
+
+count  total (s)   self (s)
+    3   0.000085   0.000026   call gitgutter#utility#set_buffer(a:bufnr)
+    3   0.000330   0.000022   if gitgutter#utility#is_active()
+    3              0.000006     if g:gitgutter_sign_column_always
+                                  call gitgutter#sign#add_dummy_sign()
+                                endif
+    3              0.000006     try
+    3   0.000040   0.000020       if !a:realtime || gitgutter#utility#has_fresh_changes()
+                                    let diff = gitgutter#diff#run_diff(a:realtime || gitgutter#utility#has_unsaved_changes(), 1)
+                                    call gitgutter#hunk#set_hunks(gitgutter#diff#parse_diff(diff))
+                                    let modified_lines = gitgutter#diff#process_hunks(gitgutter#hunk#hunks())
+                            
+                                    if len(modified_lines) > g:gitgutter_max_signs
+                                      call gitgutter#utility#warn('exceeded maximum number of signs (configured by g:gitgutter_max_signs).')
+                                      call gitgutter#sign#clear_signs()
+                                      return
+                                    endif
+                            
+                                    if g:gitgutter_signs || g:gitgutter_highlight_lines
+                                      call gitgutter#sign#update_signs(modified_lines)
+                                    endif
+                            
+                                    call gitgutter#utility#save_last_seen_change()
+                                  endif
+    3              0.000005     catch /diff failed/
+                                  call gitgutter#hunk#reset()
+                                endtry
+    3              0.000002   else
+                                call gitgutter#hunk#reset()
+                              endif
+
+FUNCTION  <SNR>85_get_hunks_gitgutter()
+Called 8 times
+Total time:   0.001133
+ Self time:   0.000117
+
+count  total (s)   self (s)
+    8   0.001021   0.000058   if !get(g:, 'gitgutter_enabled', 0) || s:is_branch_empty()
+                                return ''
+                              endif
+    8   0.000089   0.000036   return GitGutterGetHunkSummary()
+
+FUNCTION  airline#check_mode()
+Called 8 times
+Total time:   0.000760
+ Self time:   0.000760
+
+count  total (s)   self (s)
+    8              0.000030   let context = s:contexts[a:winnr]
+                            
+    8              0.000025   if get(w:, 'airline_active', 1)
+    8              0.000025     let l:m = mode()
+    8              0.000020     if l:m ==# "i"
+                                  let l:mode = ['insert']
+                                elseif l:m ==# "R"
+                                  let l:mode = ['replace']
+                                elseif l:m =~# '\v(v|V||s|S|)'
+                                  let l:mode = ['visual']
+                                elseif l:m ==# "t"
+                                  let l:mode = ['terminal']
+                                else
+    8              0.000020       let l:mode = ['normal']
+    8              0.000007     endif
+    8              0.000053     let w:airline_current_mode = get(g:airline_mode_map, l:m, l:m)
+    8              0.000007   else
+                                let l:mode = ['inactive']
+                                let w:airline_current_mode = get(g:airline_mode_map, '__')
+                              endif
+                            
+    8              0.000026   if g:airline_detect_modified && &modified
+                                call add(l:mode, 'modified')
+                              endif
+                            
+    8              0.000012   if g:airline_detect_paste && &paste
+                                call add(l:mode, 'paste')
+                              endif
+                            
+    8              0.000040   if g:airline_detect_crypt && exists("+key") && !empty(&key)
+                                call add(l:mode, 'crypt')
+                              endif
+                            
+    8              0.000012   if &readonly || ! &modifiable
+                                call add(l:mode, 'readonly')
+                              endif
+                            
+    8              0.000041   let mode_string = join(l:mode)
+    8              0.000035   if get(w:, 'airline_lastmode', '') != mode_string
+                                call airline#highlighter#highlight_modified_inactive(context.bufnr)
+                                call airline#highlighter#highlight(l:mode)
+                                let w:airline_lastmode = mode_string
+                              endif
+                            
+    8              0.000008   return ''
+
+FUNCTION  <SNR>43_repo()
+Called 6 times
+Total time:   0.000159
+ Self time:   0.000159
+
+count  total (s)   self (s)
+    6              0.000041   let dir = a:0 ? a:1 : (exists('b:git_dir') && b:git_dir !=# '' ? b:git_dir : fugitive#extract_git_dir(expand('%:p')))
+    6              0.000009   if dir !=# ''
+    6              0.000015     if has_key(s:repos, dir)
+    6              0.000015       let repo = get(s:repos, dir)
+    6              0.000003     else
+                                  let repo = {'git_dir': dir}
+                                  let s:repos[dir] = repo
+                                endif
+    6              0.000043     return extend(extend(repo, s:repo_prototype, 'keep'), s:abstract_prototype, 'keep')
+                              endif
+                              call s:throw('not a git repository: '.expand('%:p'))
+
+FUNCTION  airline#util#append()
+Called 32 times
+Total time:   0.000399
+ Self time:   0.000399
+
+count  total (s)   self (s)
+   32              0.000058   if a:minwidth > 0 && winwidth(0) < a:minwidth
+                                return ''
+                              endif
+   32              0.000143   let prefix = s:spc == "\ua0" ? s:spc : s:spc.s:spc
+   32              0.000097   return empty(a:text) ? '' : prefix.g:airline_left_alt_sep.s:spc.a:text
+
+FUNCTION  <SNR>82_sync_active_winnr()
+Called 3 times
+Total time:   0.000043
+ Self time:   0.000043
+
+count  total (s)   self (s)
+    3              0.000025   if exists('#airline') && winnr() != s:active_winnr
+                                call airline#update_statusline()
+                              endif
+
+FUNCTION  airline#parts#filetype()
+Called 8 times
+Total time:   0.000014
+ Self time:   0.000014
+
+count  total (s)   self (s)
+    8              0.000010   return &filetype
+
+FUNCTION  airline#parts#iminsert()
+Called 8 times
+Total time:   0.000054
+ Self time:   0.000054
+
+count  total (s)   self (s)
+    8              0.000020   if g:airline_detect_iminsert && &iminsert && exists('b:keymap_name')
+                                return toupper(b:keymap_name)
+                              endif
+    8              0.000006   return ''
+
+FUNCTION  <SNR>108_DiagnosticUiSupportedForCurrentFiletype()
+Called 6 times
+Total time:   0.000030
+ Self time:   0.000030
+
+count  total (s)   self (s)
+    6              0.000026   return get( s:diagnostic_ui_filetypes, &filetype, 0 )
+
+FUNCTION  <SNR>43_repo_head()
+Called 3 times
+Total time:   0.000416
+ Self time:   0.000118
+
+count  total (s)   self (s)
+    3   0.000275   0.000029     let head = s:repo().head_ref()
+                            
+    3              0.000025     if head =~# '^ref: '
+    3   0.000081   0.000029       let branch = s:sub(head,'^ref: %(refs/%(heads/|remotes/|tags/)=)=','')
+    3              0.000004     elseif head =~# '^\x\{40\}$'
+                                  " truncate hash to a:1 characters if we're in detached head mode
+                                  let len = a:0 ? a:1 : 0
+                                  let branch = len ? head[0:len-1] : ''
+                                else
+                                  return ''
+                                endif
+                            
+    3              0.000004     return branch
+
+FUNCTION  gitgutter#utility#not_git_dir()
+Called 3 times
+Total time:   0.000148
+ Self time:   0.000077
+
+count  total (s)   self (s)
+    3   0.000146   0.000075   return gitgutter#utility#full_path_to_directory_of_file() !~ '[/\\]\.git\($\|[/\\]\)'
+
+FUNCTION  <SNR>85_get_hunks()
+Called 8 times
+Total time:   0.001349
+ Self time:   0.000216
+
+count  total (s)   self (s)
+    8              0.000022   if empty(s:source_func)
+                                if get(g:, 'loaded_signify', 0)
+                                  let s:source_func = 's:get_hunks_signify'
+                                elseif exists('*GitGutterGetHunkSummary')
+                                  let s:source_func = 's:get_hunks_gitgutter'
+                                elseif exists('*changes#GetStats')
+                                  let s:source_func = 's:get_hunks_changes'
+                                elseif exists('*quickfixsigns#vcsdiff#GetHunkSummary')
+                                  let s:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
+                                else
+                                  let s:source_func = 's:get_hunks_empty'
+                                endif
+                              endif
+    8   0.001192   0.000059   return {s:source_func}()
+
+FUNCTION  <SNR>88_check_mixed_indent()
+Called 3 times
+Total time:   0.004060
+ Self time:   0.004060
+
+count  total (s)   self (s)
+    3              0.000006   if s:indent_algo == 1
+                                " [<tab>]<space><tab>
+                                " spaces before or between tabs are not allowed
+                                let t_s_t = '(^\t* +\t\s*\S)'
+                                " <tab>(<space> x count)
+                                " count of spaces at the end of tabs should be less than tabstop value
+                                let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
+                                return search('\v' . t_s_t . '|' . t_l_s, 'nw')
+                              elseif s:indent_algo == 2
+                                return search('\v(^\t* +\t\s*\S)', 'nw')
+                              else
+    3              0.004006     return search('\v(^\t+ +)|(^ +\t+)', 'nw')
+                              endif
+
+FUNCTION  40()
+Called 8 times
+Total time:   0.000094
+ Self time:   0.000094
+
+count  total (s)   self (s)
+    8              0.000039     if !exists('b:syntastic_loclist') || empty(b:syntastic_loclist)
+                                    let b:syntastic_loclist = g:SyntasticLoclist.New([])
+                                endif
+    8              0.000011     return b:syntastic_loclist
+
+FUNCTION  49()
+Called 8 times
+Total time:   0.000551
+ Self time:   0.000551
+
+count  total (s)   self (s)
+    8              0.000029     if !exists('self._stl_format')
+                                    let self._stl_format = ''
+                                endif
+    8              0.000022     if !exists('self._stl_flag')
+                                    let self._stl_flag = ''
+                                endif
+                            
+    8              0.000021     if g:syntastic_stl_format !=# self._stl_format
+                                    let self._stl_format = g:syntastic_stl_format
+                            
+                                    if !empty(self._rawLoclist)
+                                        let errors = self.errors()
+                                        let warnings = self.warnings()
+                            
+                                        let num_errors = len(errors)
+                                        let num_warnings = len(warnings)
+                                        let num_issues = len(self._rawLoclist)
+                            
+                                        let output = self._stl_format
+                            
+                                        "hide stuff wrapped in %E(...) unless there are errors
+                                        let output = substitute(output, '\m\C%E{\([^}]*\)}', num_errors ? '\1' : '' , 'g')
+                            
+                                        "hide stuff wrapped in %W(...) unless there are warnings
+                                        let output = substitute(output, '\m\C%W{\([^}]*\)}', num_warnings ? '\1' : '' , 'g')
+                            
+                                        "hide stuff wrapped in %B(...) unless there are both errors and warnings
+                                        let output = substitute(output, '\m\C%B{\([^}]*\)}', (num_warnings && num_errors) ? '\1' : '' , 'g')
+                            
+                                        let flags = { '%':  '%', 't':  num_issues, 'e':  num_errors, 'w':  num_warnings, 'N':  (num_issues ? fnamemodify( bufname(self._rawLoclist[0]['bufnr']), ':t') : ''), 'P':  (num_issues ? fnamemodify( bufname(self._rawLoclist[0]['bufnr']), ':p:~:.') : ''), 'F':  (num_issues ? self._rawLoclist[0]['lnum'] : ''), 'ne': (num_errors ? fnamemodify( bufname(errors[0]['bufnr']), ':t') : ''), 'pe': (num_errors ? fnamemodify( bufname(errors[0]['bufnr']), ':p:~:.') : ''), 'fe': (num_errors ? errors[0]['lnum'] : ''), 'nw': (num_warnings ? fnamemodify( bufname(warnings[0]['bufnr']), ':t') : ''), 'pw': (num_warnings ? fnamemodify( bufname(warnings[0]['bufnr']), ':p:~:.') : ''), 'fw': (num_warnings ? warnings[0]['lnum'] : '') }
+                                        let output = substitute(output, '\v\C\%(-?\d*%(\.\d+)?)([npf][ew]|[NPFtew%])', '\=syntastic#util#wformat(submatch(1), flags[submatch(2)])', 'g')
+                            
+                                        let self._stl_flag = output
+                                    else
+                                        let self._stl_flag = ''
+                                    endif
+                                endif
+                            
+    8              0.000011     return self._stl_flag
+
+FUNCTION  <SNR>108_UpdateDiagnosticNotifications()
+Called 6 times
+Total time:   0.000122
+ Self time:   0.000092
+
+count  total (s)   self (s)
+    6   0.000092   0.000062   let should_display_diagnostics = g:ycm_show_diagnostics_ui && s:DiagnosticUiSupportedForCurrentFiletype()
+                            
+    6              0.000011   if !should_display_diagnostics
+    6              0.000007     return
+                              endif
+                            
+                              py ycm_state.UpdateDiagnosticInterface()
+
+FUNCTION  <SNR>43_repo_dir()
+Called 6 times
+Total time:   0.000038
+ Self time:   0.000038
+
+count  total (s)   self (s)
+    6              0.000036   return join([self.git_dir]+a:000,'/')
+
+FUNCTION  gitgutter#utility#set_buffer()
+Called 3 times
+Total time:   0.000059
+ Self time:   0.000059
+
+count  total (s)   self (s)
+    3              0.000014   let s:bufnr = a:bufnr
+    3              0.000036   let s:file = resolve(bufname(a:bufnr))
+
+FUNCTION  airline#util#wrap()
+Called 64 times
+Total time:   0.000371
+ Self time:   0.000371
+
+count  total (s)   self (s)
+   64              0.000145   if a:minwidth > 0 && winwidth(0) < a:minwidth
+                                return ''
+                              endif
+   64              0.000061   return a:text
+
+FUNCTION  gitgutter#utility#help_file()
+Called 3 times
+Total time:   0.000028
+ Self time:   0.000028
+
+count  total (s)   self (s)
+    3              0.000028   return getbufvar(s:bufnr, '&filetype') ==# 'help' && getbufvar(s:bufnr, '&buftype') ==# 'help'
+
+FUNCTION  <SNR>108_AllowedToCompleteInCurrentFile()
+Called 6 times
+Total time:   0.000236
+ Self time:   0.000236
+
+count  total (s)   self (s)
+    6              0.000069   if empty( &filetype ) || getbufvar( winbufnr( winnr() ), "&buftype" ) ==# 'nofile' || &filetype ==# 'qf'
+                                return 0
+                              endif
+                            
+    6              0.000022   if exists( 'b:ycm_largefile' )
+                                return 0
+                              endif
+                            
+    6              0.000045   let whitelist_allows = has_key( g:ycm_filetype_whitelist, '*' ) || has_key( g:ycm_filetype_whitelist, &filetype )
+    6              0.000031   let blacklist_allows = !has_key( g:ycm_filetype_blacklist, &filetype )
+                            
+    6              0.000014   return whitelist_allows && blacklist_allows
+
+FUNCTION  <SNR>64_Highlight_Matching_Pair()
+Called 3 times
+Total time:   0.000450
+ Self time:   0.000450
+
+count  total (s)   self (s)
+                              " Remove any previous match.
+    3              0.000038   if exists('w:paren_hl_on') && w:paren_hl_on
+                                silent! call matchdelete(3)
+                                let w:paren_hl_on = 0
+                              endif
+                            
+                              " Avoid that we remove the popup menu.
+                              " Return when there are no colors (looks like the cursor jumps).
+    3              0.000024   if pumvisible() || (&t_Co < 8 && !has("gui_running"))
+                                return
+                              endif
+                            
+                              " Get the character under the cursor and check if it's in 'matchpairs'.
+    3              0.000018   let c_lnum = line('.')
+    3              0.000011   let c_col = col('.')
+    3              0.000007   let before = 0
+                            
+    3              0.000017   let text = getline(c_lnum)
+    3              0.000019   let c = text[c_col - 1]
+    3              0.000113   let plist = split(&matchpairs, '.\zs[:,]')
+    3              0.000020   let i = index(plist, c)
+    3              0.000008   if i < 0
+                                " not found, in Insert mode try character before the cursor
+    3              0.000026     if c_col > 1 && (mode() == 'i' || mode() == 'R')
+                                  let before = 1
+                                  let c = text[c_col - 2]
+                                  let i = index(plist, c)
+                                endif
+    3              0.000006     if i < 0
+                                  " not found, nothing to do
+    3              0.000007       return
+                                endif
+                              endif
+                            
+                              " Figure out the arguments for searchpairpos().
+                              if i % 2 == 0
+                                let s_flags = 'nW'
+                                let c2 = plist[i + 1]
+                              else
+                                let s_flags = 'nbW'
+                                let c2 = c
+                                let c = plist[i - 1]
+                              endif
+                              if c == '['
+                                let c = '\['
+                                let c2 = '\]'
+                              endif
+                            
+                              " Find the match.  When it was just before the cursor move it there for a
+                              " moment.
+                              if before > 0
+                                let has_getcurpos = exists("*getcurpos")
+                                if has_getcurpos
+                                  " getcurpos() is more efficient but doesn't exist before 7.4.313.
+                                  let save_cursor = getcurpos()
+                                else
+                                  let save_cursor = winsaveview()
+                                endif
+                                call cursor(c_lnum, c_col - before)
+                              endif
+                            
+                              " Build an expression that detects whether the current cursor position is in
+                              " certain syntax types (string, comment, etc.), for use as searchpairpos()'s
+                              " skip argument.
+                              " We match "escape" for special items, such as lispEscapeSpecial.
+                              let s_skip = '!empty(filter(map(synstack(line("."), col(".")), ''synIDattr(v:val, "name")''), ' . '''v:val =~? "string\\|character\\|singlequote\\|escape\\|comment"''))'
+                              " If executing the expression determines that the cursor is currently in
+                              " one of the syntax types, then we want searchpairpos() to find the pair
+                              " within those syntax types (i.e., not skip).  Otherwise, the cursor is
+                              " outside of the syntax types and s_skip should keep its value so we skip any
+                              " matching pair inside the syntax types.
+                              execute 'if' s_skip '| let s_skip = 0 | endif'
+                            
+                              " Limit the search to lines visible in the window.
+                              let stoplinebottom = line('w$')
+                              let stoplinetop = line('w0')
+                              if i % 2 == 0
+                                let stopline = stoplinebottom
+                              else
+                                let stopline = stoplinetop
+                              endif
+                            
+                              " Limit the search time to 300 msec to avoid a hang on very long lines.
+                              " This fails when a timeout is not supported.
+                              if mode() == 'i' || mode() == 'R'
+                                let timeout = exists("b:matchparen_insert_timeout") ? b:matchparen_insert_timeout : g:matchparen_insert_timeout
+                              else
+                                let timeout = exists("b:matchparen_timeout") ? b:matchparen_timeout : g:matchparen_timeout
+                              endif
+                              try
+                                let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline, timeout)
+                              catch /E118/
+                                " Can't use the timeout, restrict the stopline a bit more to avoid taking
+                                " a long time on closed folds and long lines.
+                                " The "viewable" variables give a range in which we can scroll while
+                                " keeping the cursor at the same position.
+                                " adjustedScrolloff accounts for very large numbers of scrolloff.
+                                let adjustedScrolloff = min([&scrolloff, (line('w$') - line('w0')) / 2])
+                                let bottom_viewable = min([line('$'), c_lnum + &lines - adjustedScrolloff - 2])
+                                let top_viewable = max([1, c_lnum-&lines+adjustedScrolloff + 2])
+                                " one of these stoplines will be adjusted below, but the current values are
+                                " minimal boundaries within the current window
+                                if i % 2 == 0
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = min([line2byte("$"), line2byte(".") + col(".") + &smc * 2])
+                            	let stopline = min([bottom_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = min([bottom_viewable, c_lnum + 100])
+                                  endif
+                                  let stoplinebottom = stopline
+                                else
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = max([1, line2byte(".") + col(".") - &smc * 2])
+                            	let stopline = max([top_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = max([top_viewable, c_lnum - 100])
+                                  endif
+                                  let stoplinetop = stopline
+                                endif
+                                let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline)
+                              endtry
+                            
+                              if before > 0
+                                if has_getcurpos
+                                  call setpos('.', save_cursor)
+                                else
+                                  call winrestview(save_cursor)
+                                endif
+                              endif
+                            
+                              " If a match is found setup match highlighting.
+                              if m_lnum > 0 && m_lnum >= stoplinetop && m_lnum <= stoplinebottom 
+                                if exists('*matchaddpos')
+                                  call matchaddpos('MatchParen', [[c_lnum, c_col - before], [m_lnum, m_col]], 10, 3)
+                                else
+                                  exe '3match MatchParen /\(\%' . c_lnum . 'l\%' . (c_col - before) . 'c\)\|\(\%' . m_lnum . 'l\%' . m_col . 'c\)/'
+                                endif
+                                let w:paren_hl_on = 1
+                              endif
+
+FUNCTION  airline#parts#ffenc()
+Called 8 times
+Total time:   0.000106
+ Self time:   0.000106
+
+count  total (s)   self (s)
+    8              0.000102   return printf('%s%s', &fenc, strlen(&ff) > 0 ? '['.&ff.']' : '')
+
+FUNCTION  airline#parts#paste()
+Called 8 times
+Total time:   0.000024
+ Self time:   0.000024
+
+count  total (s)   self (s)
+    8              0.000018   return g:airline_detect_paste && &paste ? g:airline_symbols.paste : ''
+
+FUNCTION  gitgutter#utility#has_fresh_changes()
+Called 3 times
+Total time:   0.000020
+ Self time:   0.000020
+
+count  total (s)   self (s)
+    3              0.000019   return getbufvar(s:bufnr, 'changedtick') != getbufvar(s:bufnr, 'gitgutter_last_tick')
+
+FUNCTION  <SNR>43_sub()
+Called 3 times
+Total time:   0.000052
+ Self time:   0.000052
+
+count  total (s)   self (s)
+    3              0.000051   return substitute(a:str,'\v\C'.a:pat,a:rep,'')
+
+FUNCTION  airline#parts#readonly()
+Called 8 times
+Total time:   0.000025
+ Self time:   0.000025
+
+count  total (s)   self (s)
+    8              0.000022   return &readonly ? g:airline_symbols.readonly : ''
+
+FUNCTION  airline#extensions#whitespace#check()
+Called 8 times
+Total time:   0.007633
+ Self time:   0.003573
+
+count  total (s)   self (s)
+    8              0.000036   if &readonly || !&modifiable || !s:enabled || line('$') > s:max_lines
+                                return ''
+                              endif
+                            
+    8              0.000027   if !exists('b:airline_whitespace_check')
+    3              0.000007     let b:airline_whitespace_check = ''
+    3              0.000012     let checks = get(g:, 'airline#extensions#whitespace#checks', s:default_checks)
+                            
+    3              0.000005     let trailing = 0
+    3              0.000008     if index(checks, 'trailing') > -1
+    3              0.003075       let trailing = search('\s$', 'nw')
+    3              0.000005     endif
+                            
+    3              0.000008     let mixed = 0
+    3              0.000010     if index(checks, 'indent') > -1
+    3   0.004090   0.000030       let mixed = s:check_mixed_indent()
+    3              0.000003     endif
+                            
+    3              0.000005     let long = 0
+    3              0.000008     if index(checks, 'long') > -1 && &tw > 0
+                                  let long = search('\%>'.&tw.'v.\+', 'nw')
+                                endif
+                            
+    3              0.000006     if trailing != 0 || mixed != 0 || long != 0
+                                  let b:airline_whitespace_check = s:symbol
+                                  if s:show_message
+                                    if trailing != 0
+                                      let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:trailing_format, trailing)
+                                    endif
+                                    if mixed != 0
+                                      let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:mixed_indent_format, mixed)
+                                    endif
+                                    if long != 0
+                                      let b:airline_whitespace_check .= (g:airline_symbols.space).printf(s:long_format, long)
+                                    endif
+                                  endif
+                                endif
+    3              0.000002   endif
+    8              0.000014   return b:airline_whitespace_check
+
+FUNCTION  gitgutter#utility#full_path_to_directory_of_file()
+Called 3 times
+Total time:   0.000071
+ Self time:   0.000071
+
+count  total (s)   self (s)
+    3              0.000070   return fnamemodify(s:file, ':p:h')
+
+FUNCTION  <SNR>108_OnFileReadyToParse()
+Called 6 times
+Total time:   0.000374
+ Self time:   0.000196
+
+count  total (s)   self (s)
+                              " We need to call this just in case there is no b:ycm_changetick; this can
+                              " happen for special buffers.
+    6   0.000092   0.000036   call s:SetUpYcmChangedTick()
+                            
+                              " Order is important here; we need to extract any done diagnostics before
+                              " reparsing the file again. If we sent the new parse request first, then
+                              " the response would always be pending when we called
+                              " UpdateDiagnosticNotifications.
+    6   0.000162   0.000040   call s:UpdateDiagnosticNotifications()
+                            
+    6              0.000025   let buffer_changed = b:changedtick != b:ycm_changedtick.file_ready_to_parse
+    6              0.000007   if buffer_changed
+                                py ycm_state.OnFileReadyToParse()
+                              endif
+    6              0.000019   let b:ycm_changedtick.file_ready_to_parse = b:changedtick
+
+FUNCTION  <SNR>108_OnCursorHold()
+Called 3 times
+Total time:   0.000425
+ Self time:   0.000070
+
+count  total (s)   self (s)
+    3   0.000126   0.000025   if !s:AllowedToCompleteInCurrentFile()
+                                return
+                              endif
+                            
+    3   0.000102   0.000016   call s:SetUpCompleteopt()
+    3   0.000187   0.000019   call s:OnFileReadyToParse()
+
+FUNCTION  gitgutter#hunk#summary()
+Called 8 times
+Total time:   0.000016
+ Self time:   0.000016
+
+count  total (s)   self (s)
+    8              0.000013   return s:summary
+
+FUNCTION  <SNR>43_repo_head_ref()
+Called 3 times
+Total time:   0.000179
+ Self time:   0.000141
+
+count  total (s)   self (s)
+    3   0.000085   0.000063   if !filereadable(self.dir('HEAD'))
+                                return ''
+                              endif
+    3   0.000087   0.000071   return readfile(self.dir('HEAD'))[0]
+
+FUNCTION  airline#parts#crypt()
+Called 8 times
+Total time:   0.000045
+ Self time:   0.000045
+
+count  total (s)   self (s)
+    8              0.000037   return g:airline_detect_crypt && exists("+key") && !empty(&key) ? g:airline_symbols.crypt : ''
+
+FUNCTION  airline#extensions#branch#head()
+Called 16 times
+Total time:   0.000905
+ Self time:   0.000335
+
+count  total (s)   self (s)
+   16              0.000081   if exists('b:airline_head') && !empty(b:airline_head)
+   13              0.000019     return b:airline_head
+                              endif
+                            
+    3              0.000005   let b:airline_head = ''
+    3              0.000006   let found_fugitive_head = 0
+                            
+    3              0.000011   if s:has_fugitive && !exists('b:mercurial_dir')
+    3   0.000581   0.000017     let b:airline_head = fugitive#head(7)
+    3              0.000004     let found_fugitive_head = 1
+                            
+    3              0.000009     if empty(b:airline_head) && !exists('b:git_dir')
+                                  let b:airline_head = s:get_git_branch(expand("%:p:h"))
+                                endif
+    3              0.000002   endif
+                            
+    3              0.000006   if empty(b:airline_head)
+                                if s:has_lawrencium
+                                  let b:airline_head = lawrencium#statusline()
+                                endif
+                              endif
+                            
+    3              0.000006   if empty(b:airline_head)
+                                if s:has_vcscommand
+                                  call VCSCommandEnableBufferSetup()
+                                  if exists('b:VCSCommandBufferInfo')
+                                    let b:airline_head = get(b:VCSCommandBufferInfo, 0, '')
+                                  endif
+                                endif
+                              endif
+                            
+    3              0.000011   if empty(b:airline_head) || !found_fugitive_head && !s:check_in_path()
+                                let b:airline_head = ''
+                              endif
+                            
+    3   0.000024   0.000018   let b:airline_head = s:format_name(b:airline_head)
+                            
+    3              0.000011   if exists("g:airline#extensions#branch#displayed_head_limit")
+                                let w:displayed_head_limit = g:airline#extensions#branch#displayed_head_limit
+                                if len(b:airline_head) > w:displayed_head_limit - 1
+                                  let b:airline_head = b:airline_head[0:w:displayed_head_limit - 1].'…'
+                                endif
+                              endif
+                            
+    3              0.000004   return b:airline_head
+
+FUNCTION  GitGutterGetHunkSummary()
+Called 8 times
+Total time:   0.000053
+ Self time:   0.000037
+
+count  total (s)   self (s)
+    8   0.000048   0.000032   return gitgutter#hunk#summary()
+
+FUNCTION  airline#parts#mode()
+Called 8 times
+Total time:   0.000030
+ Self time:   0.000030
+
+count  total (s)   self (s)
+    8              0.000027   return get(w:, 'airline_current_mode', '')
+
+FUNCTION  fugitive#head()
+Called 3 times
+Total time:   0.000564
+ Self time:   0.000056
+
+count  total (s)   self (s)
+    3              0.000008   if !exists('b:git_dir')
+                                return ''
+                              endif
+                            
+    3   0.000544   0.000036   return s:repo().head(a:0 ? a:1 : 0)
+
+FUNCTION  airline#statusline()
+Called 8 times
+Total time:   0.000128
+ Self time:   0.000128
+
+count  total (s)   self (s)
+    8              0.000049   if has_key(s:contexts, a:winnr)
+    8              0.000064     return '%{airline#check_mode('.a:winnr.')}'.s:contexts[a:winnr].line
+                              endif
+                            
+                              " in rare circumstances this happens...see #276
+                              return ''
+
+FUNCTION  gitgutter#utility#exists_file()
+Called 3 times
+Total time:   0.000073
+ Self time:   0.000073
+
+count  total (s)   self (s)
+    3              0.000071   return filereadable(s:file)
+
+FUNCTION  gitgutter#utility#is_active()
+Called 3 times
+Total time:   0.000308
+ Self time:   0.000059
+
+count  total (s)   self (s)
+    3   0.000305   0.000056   return g:gitgutter_enabled && gitgutter#utility#exists_file() && gitgutter#utility#not_git_dir() && !gitgutter#utility#help_file()
+
+FUNCTION  <SNR>108_SetUpCompleteopt()
+Called 3 times
+Total time:   0.000086
+ Self time:   0.000086
+
+count  total (s)   self (s)
+                              " Some plugins (I'm looking at you, vim-notes) change completeopt by for
+                              " instance adding 'longest'. This breaks YCM. So we force our settings.
+                              " There's no two ways about this: if you want to use YCM then you have to
+                              " have these completeopt settings, otherwise YCM won't work at all.
+                            
+                              " We need menuone in completeopt, otherwise when there's only one candidate
+                              " for completion, the menu doesn't show up.
+    3              0.000030   set completeopt-=menu
+    3              0.000011   set completeopt+=menuone
+                            
+                              " This is unnecessary with our features. People use this option to insert
+                              " the common prefix of all the matches and then add more differentiating chars
+                              " so that they can select a more specific match. With our features, they
+                              " don't need to insert the prefix; they just type the differentiating chars.
+                              " Also, having this option set breaks the plugin.
+    3              0.000009   set completeopt-=longest
+                            
+    3              0.000006   if g:ycm_add_preview_to_completeopt
+                                set completeopt+=preview
+                              endif
+
+FUNCTION  <SNR>108_SetUpYcmChangedTick()
+Called 6 times
+Total time:   0.000056
+ Self time:   0.000056
+
+count  total (s)   self (s)
+    6              0.000053   let b:ycm_changedtick  = get( b:, 'ycm_changedtick', {   'file_ready_to_parse' : -1, } )
+
+FUNCTION  airline#extensions#syntastic#get_warnings()
+Called 8 times
+Total time:   0.000829
+ Self time:   0.000095
+
+count  total (s)   self (s)
+    8   0.000772   0.000038   let errors = SyntasticStatuslineFlag()
+    8              0.000020   if strlen(errors) > 0
+                                return errors.(g:airline_symbols.space)
+                              endif
+    8              0.000007   return ''
+
+FUNCTION  airline#extensions#branch#get_head()
+Called 8 times
+Total time:   0.000247
+ Self time:   0.000196
+
+count  total (s)   self (s)
+    8   0.000086   0.000035   let head = airline#extensions#branch#head()
+    8              0.000049   let empty_message = get(g:, 'airline#extensions#branch#empty_message', get(g:, 'airline_branch_empty_message', ''))
+    8              0.000036   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
+    8              0.000063   return empty(head) ? empty_message : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
+
+FUNCTION  airline#extensions#hunks#get_hunks()
+Called 8 times
+Total time:   0.001935
+ Self time:   0.000586
+
+count  total (s)   self (s)
+    8              0.000021   if !get(w:, 'airline_active', 0)
+                                return ''
+                              endif
+    8   0.001397   0.000048   let hunks = s:get_hunks()
+    8              0.000012   let string = ''
+    8              0.000015   if !empty(hunks)
+   32              0.000067     for i in [0, 1, 2]
+   24              0.000057       if s:non_zero_only == 0 || hunks[i] > 0
+   24              0.000183         let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
+   24              0.000038       endif
+   24              0.000027     endfor
+    8              0.000006   endif
+    8              0.000010   return string
+
+FUNCTION  <SNR>86_format_name()
+Called 3 times
+Total time:   0.000006
+ Self time:   0.000006
+
+count  total (s)   self (s)
+    3              0.000005     return a:name
+
+FUNCTION  <SNR>89_update()
+Called 3 times
+Total time:   0.000084
+ Self time:   0.000084
+
+count  total (s)   self (s)
+    3              0.000064   if &ft !~ s:filetypes
+    3              0.000012     unlet! b:airline_wordcount
+    3              0.000004     return
+                              endif
+                            
+                              let old_status = v:statusmsg
+                              let position = getpos(".")
+                              exe "silent normal g\<c-g>"
+                              let stat = v:statusmsg
+                              call setpos('.', position)
+                              let v:statusmsg = old_status
+                            
+                              let parts = split(stat)
+                              if len(parts) > 11
+                                let cnt = str2nr(split(stat)[11])
+                                let spc = g:airline_symbols.space
+                                let b:airline_wordcount = cnt . spc . 'words' . spc . g:airline_right_alt_sep . spc
+                              else
+                                unlet! b:airline_wordcount
+                              endif
+
+FUNCTION  SyntasticStatuslineFlag()
+Called 8 times
+Total time:   0.000734
+ Self time:   0.000089
+
+count  total (s)   self (s)
+    8   0.000729   0.000084     return g:SyntasticLoclist.current().getStatuslineFlag()
+
+FUNCTION  <SNR>108_OnCursorMovedNormalMode()
+Called 3 times
+Total time:   0.000731
+ Self time:   0.000390
+
+count  total (s)   self (s)
+    3   0.000156   0.000021   if !s:AllowedToCompleteInCurrentFile()
+                                return
+                              endif
+                            
+    3   0.000226   0.000020   call s:OnFileReadyToParse()
+    3              0.000333   py ycm_state.OnCursorMoved()
+
+FUNCTIONS SORTED ON TOTAL TIME
+count  total (s)   self (s)  function
+    8   0.007633   0.003573  airline#extensions#whitespace#check()
+    3   0.004060             <SNR>88_check_mixed_indent()
+    8   0.001935   0.000586  airline#extensions#hunks#get_hunks()
+    8   0.001349   0.000216  <SNR>85_get_hunks()
+    8   0.001133   0.000117  <SNR>85_get_hunks_gitgutter()
+    8   0.000963   0.000109  <SNR>85_is_branch_empty()
+   16   0.000905   0.000335  airline#extensions#branch#head()
+    8   0.000829   0.000095  airline#extensions#syntastic#get_warnings()
+    8   0.000760             airline#check_mode()
+    8   0.000734   0.000089  SyntasticStatuslineFlag()
+    3   0.000731   0.000390  <SNR>108_OnCursorMovedNormalMode()
+    3   0.000598   0.000211  gitgutter#process_buffer()
+    3   0.000564   0.000056  fugitive#head()
+    8   0.000551             49()
+    3   0.000450             <SNR>64_Highlight_Matching_Pair()
+    3   0.000425   0.000070  <SNR>108_OnCursorHold()
+    3   0.000416   0.000118  <SNR>43_repo_head()
+   32   0.000399             airline#util#append()
+    6   0.000374   0.000196  <SNR>108_OnFileReadyToParse()
+   64   0.000371             airline#util#wrap()
+
+FUNCTIONS SORTED ON SELF TIME
+count  total (s)   self (s)  function
+    3              0.004060  <SNR>88_check_mixed_indent()
+    8   0.007633   0.003573  airline#extensions#whitespace#check()
+    8              0.000760  airline#check_mode()
+    8   0.001935   0.000586  airline#extensions#hunks#get_hunks()
+    8              0.000551  49()
+    3              0.000450  <SNR>64_Highlight_Matching_Pair()
+   32              0.000399  airline#util#append()
+    3   0.000731   0.000390  <SNR>108_OnCursorMovedNormalMode()
+   64              0.000371  airline#util#wrap()
+   16   0.000905   0.000335  airline#extensions#branch#head()
+    6              0.000236  <SNR>108_AllowedToCompleteInCurrentFile()
+    8   0.001349   0.000216  <SNR>85_get_hunks()
+    3   0.000598   0.000211  gitgutter#process_buffer()
+    6   0.000374   0.000196  <SNR>108_OnFileReadyToParse()
+    8   0.000247   0.000196  airline#extensions#branch#get_head()
+    6              0.000159  <SNR>43_repo()
+    3   0.000179   0.000141  <SNR>43_repo_head_ref()
+    8              0.000128  airline#statusline()
+    3   0.000416   0.000118  <SNR>43_repo_head()
+    8   0.001133   0.000117  <SNR>85_get_hunks_gitgutter()
+

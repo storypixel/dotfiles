@@ -28,7 +28,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'https://github.com/bronson/vim-visual-star-search'
-Plugin 'bling/vim-airline'
+" Plugin 'bling/vim-airline'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'mileszs/ack.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -37,7 +37,8 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'rking/ag.vim'
-Plugin 'powerline/powerline'
+" Plugin 'powerline/powerline'
+Plugin 'itchyny/lightline.vim'
 Plugin 'justinmk/vim-sneak'
 
 " Syntax and language plugins
@@ -197,7 +198,7 @@ autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " airline options
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 " Allow slimline to use powerline fonts
 let g:airline_powerline_fonts=1
 set guifont=Inconsolata\ for\ Powerline:h15
@@ -207,11 +208,30 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
 " ----------------------------------    Plugin Settings
 " solarized options. Having problems? http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
 syntax enable
 set background=dark
-:
 let g:solarized_termtrans=1
 let g:solarized_termcolors = 16  " If set to 256 you'd have problems see above s.o. link
 let g:solarized_visibility = "high"
