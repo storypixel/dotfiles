@@ -173,13 +173,15 @@ command! FindNonAscii                   normal /[^\x00-\x7f]<cr>
 map      <leader>d                      :bp\|bd #<CR>
 
 
-" Remap Esc to do nothing and make that function jk instead
-noremap jk <esc>
-noremap <esc> <nop>
-
 " Clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
+
+" Remap Esc to do nothing and make that function jk, kj, or jj instead
+inoremap jk <esc>
+inoremap kj <esc>
+inoremap jj <esc>
+inoremap <esc> <nop>
 
 " js beautify
 map <c-f> :call JsBeautify()<cr>
