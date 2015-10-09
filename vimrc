@@ -200,9 +200,9 @@ autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 " airline options
 " let g:airline#extensions#tabline#enabled = 1
 " Allow slimline to use powerline fonts
-let g:airline_powerline_fonts=1
+" let g:airline_powerline_fonts=1
 set guifont=Inconsolata\ for\ Powerline:h15
-let g:Powerline_symbols = 'fancy'
+" let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
