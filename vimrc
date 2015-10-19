@@ -61,6 +61,12 @@ let g:easytags_async = 1
 Plugin 'majutsushi/tagbar' "Display methods
 nmap <F8> :TagbarToggle<CR>
 
+" Needs 'gem install CoffeeTags'
+Plugin 'lukaszkorecki/CoffeeTags'
+let g:CoffeeAutoTagDisabled = 0            " Disables autotaging on save (Default: 0 [false])
+let g:CoffeeAutoTagIncludeVars = 0          " Includes variables (Default: 0 [false])
+let g:CoffeeAutoTagTagRelative = 1          " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
+
 " Bundle 'jQuery'
 
 Plugin 'rking/ag.vim'
@@ -241,7 +247,6 @@ nmap <silent> <LEFT> :cprev<CR>
 
 " Remap Esc to do nothing and make that function jk, kj, or jj instead
 inoremap jk <esc>
-inoremap kj <esc>
 inoremap jj <esc>
 inoremap <esc> <nop>
 
@@ -268,6 +273,7 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
+" ----------------------------------    Appearance and Color Schemes
 set guifont=Inconsolata\ for\ Powerline:h15
 " let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
@@ -283,3 +289,4 @@ let g:solarized_termcolors = 16  " If set to 256 you'd have problems see above s
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 colorscheme solarized
+
