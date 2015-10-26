@@ -246,7 +246,6 @@ nmap <silent> <RIGHT> :cnext<CR>
 nmap <silent> <LEFT> :cprev<CR>
 
 " Remap Esc to do nothing and make that function jk, or jj instead
-inoremap jk <esc>
 inoremap jj <esc>
 inoremap <esc> <nop>
 
