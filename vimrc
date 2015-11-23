@@ -225,22 +225,23 @@ map      <leader>d                      :bp\|bd #<CR>
 nnoremap <esc> :noh<return><esc>      " Clear highlighting on escape in normal mode
 nnoremap <esc>^[ <esc>^[
 
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 " The Silver Searcher
 " brew install the_silver_searcher or something like this
 if executable('ag')
-
+  " :echo "Hello, world!"
   " via http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
   " Note we extract the column as well as the file and line number
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  set grepprg=ag\ --nogroup\ --nocolor\ --column\ --only-matching\ --pager\ 'cut\ -c1-120'
   set grepformat=%f:%l:%c%m
+  let g:ackprg = 'ag --nogroup --nocolor --column'
 
   " this is for the ag command with ag.vim
   " let g:ag_working_path_mode="r"
 endif
-
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nmap <silent> <RIGHT> :cnext<CR>
 nmap <silent> <LEFT> :cprev<CR>
