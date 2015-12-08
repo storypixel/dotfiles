@@ -13,6 +13,8 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Bundle 'kien/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
+let g:gitgutter_max_signs = 1500
+
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
@@ -52,6 +54,8 @@ Plugin 'marijnh/tern_for_vim'
 Plugin 'Shutnik/jshint2.vim'
 
 "ctags support
+Plugin 'craigemery/vim-autotag'
+
 "brew install ctags
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags' "Search for specific methods and classes
@@ -78,15 +82,6 @@ vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('gr
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
 map <c-f> :call JsBeautify()<cr>
-" " or
-" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" " for html
-" autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" " for css or scss
-" autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-" autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-" autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-" autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 Plugin 'itchyny/lightline.vim'
 " ----------------------------------    Appearance
@@ -116,6 +111,10 @@ let g:lightline = {
 let g:netrw_preview = 1
 let g:netrw_localrmdir='rm -r' " Allow netrw to remove non-empty local directories
 
+" Vim jsx
+Plugin 'mxw/vim-jsx'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
 " Syntastic
 Plugin 'scrooloose/syntastic'
 " Jumping around errors
@@ -126,8 +125,8 @@ noremap ] :lnext<CR>
 " Syntastic shouldn't bother with HTML files
 let g:syntastic_ignore_files = ['.html$']
 let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_javascript_checkers = ['jshint']
-
+" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_debug=1
 
 execute pathogen#infect()
