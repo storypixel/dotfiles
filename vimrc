@@ -129,6 +129,7 @@ let g:syntastic_ignore_files = ['.html$']
 let g:syntastic_scss_checkers = ['scss_lint']
 " let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_javascript_checkers = ['eslint']
+
 " let g:syntastic_debug=1
 
 execute pathogen#infect()
@@ -166,6 +167,7 @@ set visualbell                        " No sounds
 set autoread                          " Reload files changed outside vim
 let mapleader = ','
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.php set filetype=html " for the php html stuff
 set clipboard=unnamed                 " Use system clipboard by default
 
 if &term =~ '^screen'                 " tmux will send xterm-style keys when its xterm-keys option is on
