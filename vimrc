@@ -296,3 +296,8 @@ colorscheme solarized
 " Allow gf to work with PHP namespaced classes.
 set includeexpr=substitute(v:fname,'\\\','/','g')
 set suffixesadd+=.php
+
+" if the path doesn't end in ** then add it set path=.,/usr/include,,**
+if &path =~ '**'
+  set path+=**
+endif
