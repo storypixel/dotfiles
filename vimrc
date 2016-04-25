@@ -42,18 +42,23 @@ Plugin 'mattn/emmet-vim'
 " Syntax and language plugins
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'jiangmiao/auto-pairs'
+" fix the jump to line when i don't want it to issue
+let g:AutoPairsMultilineClose = 0
+
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'othree/html5-syntax.vim'
 Plugin 'othree/html5.vim'
 Plugin 'tpope/vim-markdown'
-" Bundle 'jelera/vim-javascript-syntax'
-" Bundle 'othree/javascript-libraries-syntax.vim'
 " Bundle 'jiangmiao/simple-javascript-indenter'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'pangloss/vim-javascript'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'jelera/vim-javascript-syntax'
+Plugin 'othree/yajs.vim'
+Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'Shutnik/jshint2.vim'
+Plugin 'vim-scripts/JavaScript-Indent'
 
 "ctags support
 Plugin 'craigemery/vim-autotag'
@@ -68,11 +73,11 @@ Plugin 'majutsushi/tagbar' "Display methods
 nmap <F8> :TagbarToggle<CR>
 
 " Needs 'gem install CoffeeTags'
-Plugin 'lukaszkorecki/CoffeeTags'
-let g:CoffeeAutoTagDisabled = 0            " Disables autotaging on save (Default: 0 [false])
-let g:CoffeeAutoTagIncludeVars = 0          " Includes variables (Default: 0 [false])
-let g:CoffeeAutoTagTagRelative = 1          " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
-
+" Plugin 'lukaszkorecki/CoffeeTags'
+" let g:CoffeeAutoTagDisabled = 0            " Disables autotaging on save (Default: 0 [false])
+" let g:CoffeeAutoTagIncludeVars = 0          " Includes variables (Default: 0 [false])
+" let g:CoffeeAutoTagTagRelative = 1          " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
+"
 " Bundle 'jQuery'
 
 Plugin 'rking/ag.vim'
@@ -301,3 +306,16 @@ set suffixesadd+=.php
 if &path =~ '**'
   set path+=**
 endif
+
+"Folding preferences
+set foldmethod=syntax
+set foldlevelstart=1
+
+let javaScript_fold=1         " JavaScript
+let perl_fold=1               " Perl
+let php_folding=1             " PHP
+let r_syntax_folding=1        " R
+let ruby_fold=1               " Ruby
+let sh_fold_enabled=1         " sh
+let vimsyn_folding='af'       " Vim script
+let xml_syntax_folding=1      " XML
