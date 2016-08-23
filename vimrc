@@ -42,26 +42,25 @@ Plugin 'mattn/emmet-vim'
 " Syntax and language plugins
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'jiangmiao/auto-pairs'
-" fix the jump to line when i don't want it to issue
-let g:AutoPairsMultilineClose = 0
-
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'othree/html5-syntax.vim'
 Plugin 'othree/html5.vim'
 Plugin 'tpope/vim-markdown'
+" Bundle 'jelera/vim-javascript-syntax'
+" Bundle 'othree/javascript-libraries-syntax.vim'
 " Bundle 'jiangmiao/simple-javascript-indenter'
 Plugin 'kchmck/vim-coffee-script'
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'jelera/vim-javascript-syntax'
-Plugin 'othree/yajs.vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'pangloss/vim-javascript'
+
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'Shutnik/jshint2.vim'
-Plugin 'vim-scripts/JavaScript-Indent'
 
 "ctags support
 Plugin 'craigemery/vim-autotag'
+
+"ctrlp
+Plugin 'ctrlpvim/ctrlp.vim'
 
 "brew install ctags
 Plugin 'xolox/vim-misc'
@@ -73,11 +72,11 @@ Plugin 'majutsushi/tagbar' "Display methods
 nmap <F8> :TagbarToggle<CR>
 
 " Needs 'gem install CoffeeTags'
-" Plugin 'lukaszkorecki/CoffeeTags'
-" let g:CoffeeAutoTagDisabled = 0            " Disables autotaging on save (Default: 0 [false])
-" let g:CoffeeAutoTagIncludeVars = 0          " Includes variables (Default: 0 [false])
-" let g:CoffeeAutoTagTagRelative = 1          " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
-"
+Plugin 'lukaszkorecki/CoffeeTags'
+let g:CoffeeAutoTagDisabled = 0            " Disables autotaging on save (Default: 0 [false])
+let g:CoffeeAutoTagIncludeVars = 0          " Includes variables (Default: 0 [false])
+let g:CoffeeAutoTagTagRelative = 1          " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
+
 " Bundle 'jQuery'
 
 Plugin 'rking/ag.vim'
@@ -119,8 +118,8 @@ let g:netrw_preview = 1
 let g:netrw_localrmdir='rm -r' " Allow netrw to remove non-empty local directories
 
 " Vim jsx
-Plugin 'mxw/vim-jsx'
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+" Plugin 'mxw/vim-jsx'
+" let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " Syntastic
 Plugin 'scrooloose/syntastic'
@@ -307,15 +306,26 @@ if &path =~ '**'
   set path+=**
 endif
 
-"Folding preferences
-set foldmethod=syntax
-set foldlevelstart=1
+" folding
+set foldmethod=manual
+set foldlevel=1
+set foldclose=all
 
-let javaScript_fold=1         " JavaScript
-let perl_fold=1               " Perl
-let php_folding=1             " PHP
-let r_syntax_folding=1        " R
-let ruby_fold=1               " Ruby
-let sh_fold_enabled=1         " sh
-let vimsyn_folding='af'       " Vim script
-let xml_syntax_folding=1      " XML
+" ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 0
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+" set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+let g:ctrlp_regexp = 1 " use regex
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_by_filename = 1

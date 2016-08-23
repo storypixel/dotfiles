@@ -80,3 +80,4 @@ eval "$(rbenv init -)"
 
 # jilles.me article recommends z
 . `brew --prefix`/etc/profile.d/z.sh
+export PATH="/usr/local/sbin:$PATH"
