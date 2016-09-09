@@ -2,6 +2,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+
 " Vundle initialization
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin() " Keep Plugin commands between vundle#begin/end.
@@ -30,10 +31,15 @@ Plugin 'https://github.com/bronson/vim-visual-star-search'
 " Plugin 'bling/vim-airline'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'mileszs/ack.vim'
+
+" for Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
+" Optional
 Plugin 'honza/vim-snippets'
+" end for Snipmate
+
 Plugin 'tomtom/tcomment_vim'
 " Plugin 'powerline/powerline'
 Plugin 'justinmk/vim-sneak'
@@ -50,7 +56,7 @@ Plugin 'tpope/vim-markdown'
 " Bundle 'othree/javascript-libraries-syntax.vim'
 " Bundle 'jiangmiao/simple-javascript-indenter'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'pangloss/vim-javascript'
+" Plugin 'pangloss/vim-javascript'
 
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
@@ -62,6 +68,9 @@ Plugin 'craigemery/vim-autotag'
 "ctrlp
 Plugin 'ctrlpvim/ctrlp.vim'
 
+" Solves issues with having to do windo e all of the time
+" Bundle 'djoshea/vim-autoread'
+
 "brew install ctags
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags' "Search for specific methods and classes
@@ -72,10 +81,10 @@ Plugin 'majutsushi/tagbar' "Display methods
 nmap <F8> :TagbarToggle<CR>
 
 " Needs 'gem install CoffeeTags'
-Plugin 'lukaszkorecki/CoffeeTags'
-let g:CoffeeAutoTagDisabled = 0            " Disables autotaging on save (Default: 0 [false])
-let g:CoffeeAutoTagIncludeVars = 0          " Includes variables (Default: 0 [false])
-let g:CoffeeAutoTagTagRelative = 1          " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
+" Plugin 'lukaszkorecki/CoffeeTags'
+" let g:CoffeeAutoTagDisabled = 0            " Disables autotaging on save (Default: 0 [false])
+" let g:CoffeeAutoTagIncludeVars = 0          " Includes variables (Default: 0 [false])
+" let g:CoffeeAutoTagTagRelative = 1          " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
 
 " Bundle 'jQuery'
 
@@ -85,9 +94,9 @@ nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword
 vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('grep', '--literal ' . shellescape(@/))<CR>
 
 " js beautify
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'einars/js-beautify'
-map <c-f> :call JsBeautify()<cr>
+" Plugin 'maksimr/vim-jsbeautify'
+" Plugin 'einars/js-beautify'
+" map <c-f> :call JsBeautify()<cr>
 
 Plugin 'itchyny/lightline.vim'
 " ----------------------------------    Appearance
@@ -136,6 +145,14 @@ let g:syntastic_javascript_checkers = ['eslint']
 
 " let g:syntastic_debug=1
 
+" begin Angular stuff with preferred libraries
+Plugin 'burnettk/vim-angular'
+Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'matthewsimo/angular-vim-snippets'
+Plugin 'claco/jasmine.vim'
+" end Angular stuff
+
 execute pathogen#infect()
 
 " All of your Plugins must be added before the following line
@@ -169,6 +186,8 @@ set showmode                          " Show current mode down the bottom
 set gcr=a:blinkon0                    " Disable cursor blink
 set visualbell                        " No sounds
 set autoread                          " Reload files changed outside vim
+au CursorHold,CursorHoldI * checktime
+
 let mapleader = ','
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.php set filetype=html " for the php html stuff
