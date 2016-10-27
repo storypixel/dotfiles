@@ -146,7 +146,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_debug=1
 
 " begin Angular stuff with preferred libraries
-Plugin 'burnettk/vim-angular'
+" Plugin 'burnettk/vim-angular'
 Plugin 'pangloss/vim-javascript'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'matthewsimo/angular-vim-snippets'
